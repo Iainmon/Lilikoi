@@ -1,0 +1,14 @@
+{
+    "branches" : {
+        "users" : [
+            "username",
+            "email",
+            "password"
+        ],
+        "posts" : [
+            "user",
+            "title",
+            "description"
+        ]
+    }
+}

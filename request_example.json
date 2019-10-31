@@ -1,0 +1,17 @@
+{
+    "request" : {
+        "link" : {
+            "field" : "users.username",
+            "value" : "iainmoncrief"
+        },
+        "look" : [
+            "users.email"
+        ],
+        "modify" : [
+            {
+                "field" : "users.email",
+                "value" : "iainmoncrief@gmail.com"
+            }
+        ]
+    }
+}

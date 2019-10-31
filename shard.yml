@@ -1,0 +1,19 @@
+name: Lilikoi
+version: 0.1.0
+
+authors:
+  - Iain Moncrief <iainmoncrief@gmail.com>
+
+targets:
+  Lilikoi:
+    main: src/Lilikoi.cr
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  forloop:
+    github: iainmon/forloop.cr
+
+crystal: 0.31.1
+
+license: MIT
