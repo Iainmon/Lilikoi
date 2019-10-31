@@ -1,5 +1,18 @@
 
 module Lilikoi
+
+    def self.test_fruit
+        fruit_options = File.read("./request_example.json")
+
+        vine = create_populated_vine_database("./config/schema.json")
+    
+        fruit = Fruit.new fruit_options
+        
+        fruit.run(vine)
+    
+        print("Example query response:")
+        print(fruit.respond)
+    end
     def self.create_populated_vine_database(schema_file_location = "./config/schema.json") : Vine
 
         print("Populating test database...")

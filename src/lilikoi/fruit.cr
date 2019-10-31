@@ -57,7 +57,7 @@ module Lilikoi
             def act(vine : Vine)
                 @identifier = find_identifier(vine)
                 run_look(vine) if @to_look.size > 0
-                run_modify if @to_modify.size > 0
+                run_modify(vine) if @to_modify.size > 0
                 run_remove if @to_remove.size > 0
                 return @collected_values
             end
@@ -70,8 +70,10 @@ module Lilikoi
                 end
             end
 
-            def run_modify
-
+            def run_modify(vine : Vine)
+                for modification_instruction in @to_modify do
+                    vine.store(modification_instruction["field"], @identifier, modification_instruction["value"])
+                end
             end
 
             def run_remove

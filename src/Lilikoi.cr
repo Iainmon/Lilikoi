@@ -1,21 +1,34 @@
 require "json"
 require "./print.cr"
 require "./lilikoi/**"
-require "./database_test.cr"
+require "kemal"
 
-module Lilikoi
+include Lilikoi
 
-    VERSION = "0.1.0"
+vine_branches = Vine.branches_from_schema_file "./config/schema.json"
 
-    fruit_options = File.read("./request_example.json")
+vine = Vine.new vine_branches
 
-    vine = create_populated_vine_database("./config/schema.json")
+new_user_values = {
+    "username" => "iainmoncrief",
+    "email" => "exampleemail@example.com"
+}
+vine.create("users", new_user_values)
 
-    fruit = Fruit.new fruit_options
-    
-    fruit.run(vine)
+ws "/lilikoi" do |socket|
 
-    print("Example query response:")
-    print(fruit.respond)
+    socket.on_message do |message|
+
+        fruit = Fruit.new message.to_s
+        fruit.run vine
+        socket.send(fruit.respond)
+
+    end
+
+    socket.on_close do |_|
+        puts "Closing socket: #{socket}"
+    end
 
 end
+
+Kemal.run

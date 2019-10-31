@@ -6,6 +6,8 @@ require "random"
 
 module Lilikoi
 
+    alias SchemaType = Hash(String, Hash(String, Array(String)))
+
     class Vine < Stem
 
         property branch_prefixes = Array(String).new
@@ -62,6 +64,11 @@ module Lilikoi
             key = Random::Secure.hex(8)
             key = generate_random_index(branch_prefix) unless @branches["#{branch_prefix}._identifier"].key_for?(key).nil?
             key
+        end
+
+        def self.branches_from_schema_file(schema_file_location = "./config/schema.json") : Hash(String, Array(String))
+            schema = SchemaType.from_json(File.read(schema_file_location))
+            return schema["branches"]
         end
     
     end
